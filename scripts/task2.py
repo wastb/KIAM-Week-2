@@ -37,19 +37,3 @@ def kmeans_clustering(df_engagement_metrics):
     df_engagement_metrics['cluster'] = kmeans.fit_predict(metrics_scaled)
 
     return df_engagement_metrics
-
-def top_3_apps(df_aggregated):
-    # Aggregating traffic per user (MSISDN/Number) for each application
-app_traffic = df.groupby('MSISDN/Number').agg({
-    'Total Social Media Traffic': 'sum',
-    'Total Google Traffic': 'sum',
-    'Total Email Traffic': 'sum',
-    'Total Youtube Traffic': 'sum',
-    'Total Netflix Traffic': 'sum',
-    'Total Gaming Traffic': 'sum',
-    'Total Other Traffic': 'sum'
-}).reset_index()
-# Top 10 most engaged users per application
-top_10_social_media = app_traffic.nlargest(10, 'Total Social Media Traffic')
-top_10_google = app_traffic.nlargest(10, 'Total Google Traffic')
-top_10_youtube = app_traffic.nlargest(10, 'Total Youtube Traffic')
