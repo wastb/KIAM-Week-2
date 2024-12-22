@@ -29,11 +29,28 @@ def top_10_customers(df_engagement_metrics):
 def kmeans_clustering(df_engagement_metrics):
 
     #Normalizarion
+    features = df_engagement_metrics[['sessions_frequency', 'session_duration','total_traffic']]
     scaler = StandardScaler()
-    metrics_scaled = scaler.fit_transform(df_engagement_metrics)
+    metrics_scaled = scaler.fit_transform(features)
 
     # K-means Clustering (k=3)
     kmeans = KMeans(n_clusters=3, random_state=0)
-    df_engagement_metrics['cluster'] = kmeans.fit_predict(metrics_scaled)
+    kmeans.fit(metrics_scaled)
+    df_engagement_metrics['cluster'] = kmeans.labels_
 
     return df_engagement_metrics
+
+def centroids(df_engagement_metrics):
+
+    #Normalizarion
+    features = df_engagement_metrics[['sessions_frequency', 'session_duration','total_traffic']]
+    scaler = StandardScaler()
+    metrics_scaled = scaler.fit_transform(features)
+
+    # K-means Clustering (k=3)
+    kmeans = KMeans(n_clusters=3, random_state=0)
+    kmeans.fit(metrics_scaled)
+    
+    centroids = kmeans.cluster_centers_
+
+    return centroids
