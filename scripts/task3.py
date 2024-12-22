@@ -41,4 +41,21 @@ def kmeans_clustering(df_experience_metrics):
 
         # K-means Clustering (k=3)
         kmeans = KMeans(n_clusters=3, random_state=0)
-        df_experience_metrics['cluster'] = kmeans.fit_predict(metrics_scaled)
+        kmeans.fit(metrics_scaled)
+        df_experience_metrics['cluster'] = kmeans.labels_
+
+
+def centroids(df_experience_metrics):
+
+    #Normalizarion
+    features = df_experience_metrics[['total_TCP_vol','total_RTT_vol','total_throughput_speed']]
+    scaler = StandardScaler()
+    metrics_scaled = scaler.fit_transform(features)
+
+    # K-means Clustering (k=3)
+    kmeans = KMeans(n_clusters=3, random_state=0)
+    kmeans.fit(metrics_scaled)
+    
+    centroids = kmeans.cluster_centers_
+
+    return centroids
