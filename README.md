@@ -127,7 +127,7 @@ The objective of this project is to analyze the data provided by TellCo to ident
   - Export Data: Export the final table containing user IDs and scores to a local MySQL database. Provide a screenshot of the query output.
   - Model Tracking: Deploy and monitor the model using tools like Docker. Track and document model changes, metrics, and outputs.
 
-## Dashboard Development
+### Dashboard Development
 
 - **Objective**: Develop an interactive dashboard using Streamlit to visualize insights.
 - **Features**:
