@@ -35,6 +35,7 @@ st.write("""
     """)
 
 st.write(""" ## Key Findings and Insights""")
+
 # Load data from postgres database
 query = 'select * from xdr_data;'
 df = de.load_data_from_postgres(query)

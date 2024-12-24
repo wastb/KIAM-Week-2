@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import pg8000
 
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
@@ -18,23 +19,13 @@ def load_data_from_postgres(query):
     # Load data from a postgres database
     try:
         #Establish connection to the database
-        import pg8000
-
-        conn = pg8000.connect(
-            host=DB_HOST,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            database=DB_NAME,
-            port=DB_PORT
-        )
-
+        
+        engine = create_engine(f"postgresql+pg8000://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
     
-        df = pd.read_sql_query(query, conn)
+        df = pd.read_sql_query(query, engine)
 
         print("Data successfully imported from postgres")
         
-        # Close the connection
-        conn.close()
         return df
     
     except Exception as e:
